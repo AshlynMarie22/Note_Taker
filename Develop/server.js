@@ -85,7 +85,7 @@ app.delete("/api/notes", (req, res) => {
     });
   }
   const updatedData = JSON.parse(data);
-  res.json(updatedData);
+  res.send(updatedData);
 });
 });
 
