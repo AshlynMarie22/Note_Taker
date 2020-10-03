@@ -73,9 +73,22 @@ app.post("/api/notes", (req, res) => {
     });
   });
 });
+//Delete
+app.delete("/api/notes", (req, res) => {
+  fs.readFile("./Develop/db/db.json", "utf-8", (err, data) => {
+    if (err) {
+      console.log(err);
+      return res.status(500).json({
+        error: true,
+        data: null,
+        message: "unable to delete notes ",
+    });
+  }
+  const updatedData = JSON.parse(data);
+  res.json(updatedData);
+});
+});
 
 app.listen(PORT, () => {
   console.log(`App is running on http://localhost:${PORT}`);
 });
-
-
