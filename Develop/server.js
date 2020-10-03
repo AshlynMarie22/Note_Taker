@@ -90,14 +90,7 @@ app.delete("/api/notes:id", (req, res) => {
     (note) => req.params.id !== note.id
   );
   fs.writeFile("./Develop/db/db.json", JSON.stringify(filteredNote, null, 2), (err) => {
-    if (err) {
-      console.log(err);
-      return res.status(500).json({
-        error: true,
-        data: null,
-        message: "Unable to delete note.",
-      });
-    }
+    if (err) throw err;
     res.sendFile(path.join(__dirname, "public/notes.html"));
   });
 });
