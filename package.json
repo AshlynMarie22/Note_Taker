@@ -2,7 +2,7 @@
   "name": "develop",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
+  "main": "./Develop/server.js",
   "dependencies": {
     "express": "^4.17.1"
   },
@@ -13,5 +13,13 @@
     "dev": "nodemon server.js"
   },
   "author": "Ashlyn M. Smith",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AshlynMarie22/Note_Taker.git"
+  },
+  "bugs": {
+    "url": "https://github.com/AshlynMarie22/Note_Taker/issues"
+  },
+  "homepage": "https://github.com/AshlynMarie22/Note_Taker#readme"
 }

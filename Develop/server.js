@@ -2,7 +2,6 @@ const express = require("express");
 const fs = require("fs");
 const app = express();
 const path = require("path");
-// const indexNotes=require("./public/assets/js/index")
 
 const PORT = process.env.PORT || 8080;
 
@@ -13,7 +12,7 @@ app.use(express.static("./Develop/public"));
 
 //GET ROUTES
 app.get("/api/notes", (req, res) => {
-  fs.readFile("./db/db.json", "utf-8", (err, data) => {
+  fs.readFile("./Develop/db/db.json", "utf-8", (err, data) => {
     if (err) {
       console.log(err);
       return res.status(500).json({
@@ -40,14 +39,14 @@ app.get("/notes", function(req, res) {
   });
 
   app.get("/api/notes", function(req,res){
-    return res.sendFile(path.join(__dirname, "db/db.json"))
+    return res.sendFile(path.join(__dirname, "./Develop/db/db.json"))
 })
 
 
 //POST ROUTES
 app.post("/api/notes", (req, res) => {
   console.log(req.body);
-  fs.readFile("./db/db.json", "utf-8", (err, data) => {
+  fs.readFile("./Develop/db/db.json", "utf-8", (err, data) => {
     if (err) {
       console.log(err);
       return res.status(500).json({
@@ -60,7 +59,7 @@ app.post("/api/notes", (req, res) => {
     const updatedData = JSON.parse(data);
     updatedData.push(req.body);
     //console.log(updatedData);
-    fs.writeFile("./db/db.json", JSON.stringify(updatedData), (err) => {
+    fs.writeFile("./Develop/db/db.json", JSON.stringify(updatedData), (err) => {
       if (err) {
         console.log(err);
         return res.status(500).json({
