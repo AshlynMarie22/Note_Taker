@@ -43,6 +43,7 @@ app.get("/notes", function(req, res) {
 //POST ROUTES
 app.post("/api/notes", (req, res) => {
   console.log(req.body);
+  req.body.id = uuidv4();
   fs.readFile("./Develop/db/db.json", "utf-8", (err, data) => {
     if (err) {
       console.log(err);
@@ -54,7 +55,6 @@ app.post("/api/notes", (req, res) => {
     }
     //console.log(data);
     const updatedData = JSON.parse(data);
-    req.body.id = uuivdv4();
     updatedData.push(req.body);
     //console.log(updatedData);
     fs.writeFile("./Develop/db/db.json", JSON.stringify(updatedData), (err) => {
@@ -86,10 +86,23 @@ app.delete("/api/notes:id", (req, res) => {
     });
   }
   const updatedData = JSON.parse(data);
-  const filteredNote  = updatedData.filter()
-  res.json(JSON.stringify(updatedData));
+  const filteredNote  = updatedData.filter(
+    (note) => req.params.id !== note.id
+  );
+  fs.writeFile("./Develop/db/db.json", JSON.stringify(updatedData), (err) => {
+    if (err) {
+      console.log(err);
+      return res.status(500).json({
+        error: true,
+        data: null,
+        message: "Unable to delete note.",
+      });
+    }
+    res.sendFile(path.join(__dirname, "public/notes.html"));
+  });
 });
 });
+
 
 app.listen(PORT, () => {
   console.log(`App is running on http://localhost:${PORT}`);
