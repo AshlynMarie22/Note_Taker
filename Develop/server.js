@@ -1,0 +1,64 @@
+const express = require("express");
+const fs = require("fs");
+const app = express();
+// const indexNotes=require("./public/assets/js/index")
+
+const PORT = process.env.PORT || 8080;
+
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+//GET ROUTES
+app.get("/api/students", (req, res) => {
+  fs.readFile("./db/db.json", "utf-8", (err, data) => {
+    if (err) {
+      console.log(err);
+      return res.status(500).json({
+        error: true,
+        data: null,
+        message: "unable to retrieve notes ",
+      });
+    }
+    res.json({
+      error: false,
+      data: JSON.parse(data),
+      message: "Successfully retrieved notes",
+    });
+  });
+});
+//POST ROUTES
+app.post("/api/notes", (req, res) => {
+  console.log(req.body);
+  fs.readFile("./db/db.json", "utf-8", (err, data) => {
+    if (err) {
+      console.log(err);
+      return res.status(500).json({
+        error: true,
+        data: null,
+        message: "unable to retrieve notes ",
+      });
+    }
+    //console.log(data);
+    const updatedData = JSON.parse(data);
+    updatedData.push(req.body);
+    //console.log(updatedData);
+    fs.writeFile("./db/db.json", JSON.stringify(updatedData), (err) => {
+      if (err) {
+        console.log(err);
+        return res.status(500).json({
+          error: true,
+          data: null,
+          message: "Unable to save new notes.",
+        });
+      }
+      res.json({
+        error: false,
+        data: updatedData,
+        message: "Successfully added new note.",
+      });
+    });
+  });
+});
+
+app.listen(PORT, () => {
+  console.log(`App is running on http://localhost:${PORT}`);
+});
