@@ -9,7 +9,7 @@ const PORT = process.env.PORT || 8080;
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 //GET ROUTES
-app.get("/api/students", (req, res) => {
+app.get("/api/notes", (req, res) => {
   fs.readFile("./db/db.json", "utf-8", (err, data) => {
     if (err) {
       console.log(err);
@@ -32,7 +32,7 @@ app.get("/notes", function(req, res) {
   });
 
   // If no matching route is found default to home
-  app.get("*", function(req, res) {
+  app.get("/", function(req, res) {
     res.sendFile(path.join(__dirname, "../public/index.html"));
   });
 
