@@ -1,6 +1,7 @@
 const express = require("express");
 const fs = require("fs");
 const app = express();
+const path = require("path");
 // const indexNotes=require("./public/assets/js/index")
 
 const PORT = process.env.PORT || 8080;
@@ -25,6 +26,17 @@ app.get("/api/students", (req, res) => {
     });
   });
 });
+
+app.get("/notes", function(req, res) {
+    res.sendFile(path.join(__dirname, "../public/notes.html"));
+  });
+
+  // If no matching route is found default to home
+  app.get("*", function(req, res) {
+    res.sendFile(path.join(__dirname, "../public/index.html"));
+  });
+
+
 //POST ROUTES
 app.post("/api/notes", (req, res) => {
   console.log(req.body);
@@ -62,3 +74,5 @@ app.post("/api/notes", (req, res) => {
 app.listen(PORT, () => {
   console.log(`App is running on http://localhost:${PORT}`);
 });
+
+
