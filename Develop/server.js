@@ -12,20 +12,20 @@ app.use(express.json());
 app.use(express.static("./Develop/public"));
 
 //GET ROUTES
-app.get("/api/notes", (req, res) => {
-  fs.readFile("./Develop/db/db.json", "utf-8", (err, data) => {
-    if (err) {
-      console.log(err);
-      return res.status(500).json({
-        error: true,
-        data: null,
-        message: "unable to retrieve notes ",
-      });
-    }
-    const updatedData = JSON.parse(data);
-    res.json(updatedData);
-  });
-});
+// app.get("/api/notes", (req, res) => {
+//   fs.readFile("./Develop/db/db.json", "utf-8", (err, data) => {
+//     if (err) {
+//       console.log(err);
+//       return res.status(500).json({
+//         error: true,
+//         data: null,
+//         message: "unable to retrieve notes ",
+//       });
+//     }
+//     const updatedData = JSON.parse(data);
+//     res.json(updatedData);
+//   });
+// });
 
 app.get("/notes", function(req, res) {
     res.sendFile(path.join(__dirname, "public/notes.html"));
@@ -35,9 +35,9 @@ app.get("/notes", function(req, res) {
     res.sendFile(path.join(__dirname, "public/index.html"));
   });
 
-//   app.get("/api/notes", function(req,res){
-//     return res.sendFile(path.join(__dirname, "./Develop/db/db.json"))
-// })
+  app.get("/api/notes", function(req,res){
+    return res.sendFile(path.join(__dirname, "./Develop/db/db.json"))
+})
 
 
 //POST ROUTES
