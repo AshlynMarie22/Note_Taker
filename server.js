@@ -6,8 +6,11 @@ const path = require("path");
 
 const PORT = process.env.PORT || 8080;
 
+//Middleware
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(express.static("./Develop/public"));
+
 //GET ROUTES
 app.get("/api/notes", (req, res) => {
   fs.readFile("./db/db.json", "utf-8", (err, data) => {
@@ -35,6 +38,10 @@ app.get("/notes", function(req, res) {
   app.get("/", function(req, res) {
     res.sendFile(path.join(__dirname, "../public/index.html"));
   });
+
+  app.get("/api/notes", function(req,res){
+    return res.sendFile(path.join(__dirname, "db/db.json"))
+})
 
 
 //POST ROUTES
