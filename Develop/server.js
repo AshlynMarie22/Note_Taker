@@ -89,7 +89,7 @@ app.delete("/api/notes:id", (req, res) => {
   const filteredNote  = updatedData.filter(
     (note) => req.params.id !== note.id
   );
-  fs.writeFile("./Develop/db/db.json", JSON.stringify(filteredNotes, null, 2), (err) => {
+  fs.writeFile("./Develop/db/db.json", JSON.stringify(filteredNote, null, 2), (err) => {
     if (err) {
       console.log(err);
       return res.status(500).json({
