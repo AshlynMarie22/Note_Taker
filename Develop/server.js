@@ -35,9 +35,9 @@ app.get("/notes", function(req, res) {
     res.sendFile(path.join(__dirname, "public/index.html"));
   });
 
-  app.get("/api/notes", function(req,res){
-    return res.sendFile(path.join(__dirname, "./Develop/db/db.json"))
-})
+//   app.get("/api/notes", function(req,res){
+//     return res.sendFile(path.join(__dirname, "./Develop/db/db.json"))
+// })
 
 
 //POST ROUTES
@@ -54,6 +54,7 @@ app.post("/api/notes", (req, res) => {
     }
     //console.log(data);
     const updatedData = JSON.parse(data);
+    req.body.id = uuivdv4();
     updatedData.push(req.body);
     //console.log(updatedData);
     fs.writeFile("./Develop/db/db.json", JSON.stringify(updatedData), (err) => {
@@ -74,7 +75,7 @@ app.post("/api/notes", (req, res) => {
   });
 });
 //Delete
-app.delete("/api/notes", (req, res) => {
+app.delete("/api/notes:id", (req, res) => {
   fs.readFile("./Develop/db/db.json", "utf-8", (err, data) => {
     if (err) {
       console.log(err);
@@ -85,6 +86,7 @@ app.delete("/api/notes", (req, res) => {
     });
   }
   const updatedData = JSON.parse(data);
+  const filteredNote  = updatedData.filter()
   res.json(JSON.stringify(updatedData));
 });
 });
