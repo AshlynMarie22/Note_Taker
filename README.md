@@ -12,7 +12,7 @@
 
 ## Description
 
-This application is a generator for a ReadMe file. This application has a pre-made template that is auto populated after the user answers a series of prompts. 
+This application is a place for the user to write and save notes.  
 
 ## Installation
 
